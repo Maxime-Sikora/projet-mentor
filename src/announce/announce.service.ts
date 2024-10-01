@@ -4,7 +4,7 @@ import { LevelService } from 'src/level/level.service';
 import { SubjectService } from 'src/subject/subject.service';
 import { Repository } from 'typeorm';
 import { AnnounceEntity } from './entities/announce.entity';
-import { CreateAnnounce } from './interface/create-announce';
+import { CreateAnnounceDto } from './interface/create-announce.dto';
 
 @Injectable()
 export class AnnounceService {
@@ -18,19 +18,7 @@ export class AnnounceService {
     price,
     level: { name: levelName },
     subject: { name: subjectName },
-  }: CreateAnnounce): Promise<AnnounceEntity> {
-    if (!price || !levelName || !subjectName) {
-      throw new HttpException(
-        `bad request, subject or level or price not found`,
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-    if (price <= 0) {
-      throw new HttpException(
-        `bad request, price too low`,
-        HttpStatus.BAD_REQUEST,
-      );
-    }
+  }: CreateAnnounceDto): Promise<AnnounceEntity> {
     const level = await this.levelService.findOneByName(levelName);
     const subject = await this.subjectService.findOneByName(subjectName);
     const announce = await this.announceRepository.save({
@@ -54,7 +42,6 @@ export class AnnounceService {
       level,
       subject,
     });
-    console.log(announce);
     if (!announce) {
       throw new HttpException(
         `no announce linked to subject: ${subject} and level: ${level}`,

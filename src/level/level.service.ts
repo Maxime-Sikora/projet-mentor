@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LevelEntity } from './entities/level.entity';
-// import { LevelSubjectInterface } from './level';
 
 @Injectable()
 export class LevelService {
@@ -21,19 +20,9 @@ export class LevelService {
     });
   }
 
-  // async findLevelAndSubjectByName(
-  //   name: string,
-  // ): Promise<LevelSubjectInterface> {
-  //   const level = await this.levelRepository.findOneBy({ name });
-  //   return {
-  //     subject: {
-  //       id: level.subject.id,
-  //       name: level.subject.name,
-  //     },
-  //     level: {
-  //       id: level.id,
-  //       name: level.name,
-  //     },
-  //   };
-  // }
+  async createLevel(level: { name: string }): Promise<LevelEntity> {
+    return this.levelRepository.save({
+      name: level.name,
+    });
+  }
 }
