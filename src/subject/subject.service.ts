@@ -1,8 +1,7 @@
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cache } from 'cache-manager';
-// import { LevelSubjectInterface } from 'src/level/level';
 import { Repository } from 'typeorm';
 import { SubjectEntity } from './entities/subject.entity';
 import { InterfacePostSubject } from './subject';
@@ -25,8 +24,15 @@ export class SubjectService {
     return subjectCache;
   }
 
-  findOneById(id: number): Promise<SubjectEntity> {
-    return this.subjectRepository.findOneBy({ id });
+  async findOneById(id: number): Promise<SubjectEntity> {
+    const subject = await this.subjectRepository.findOneBy({ id });
+    if (!subject) {
+      throw new HttpException(
+        `no subject found with this id: ${id}`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return subject;
   }
 
   findOneByName(name: string): Promise<SubjectEntity> {
@@ -38,21 +44,13 @@ export class SubjectService {
   async createNewSubject({
     name,
   }: InterfacePostSubject): Promise<SubjectEntity> {
+    if (!name) {
+      throw new HttpException(
+        `bad request, name not found`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     const newSubject = await this.subjectRepository.save({ name });
     return newSubject;
   }
-
-  // async levelAndSubjectFromName(name: string): Promise<LevelSubjectInterface> {
-  //   const subject = await this.subjectRepository.findOneBy({ name });
-  //   return {
-  //     subject: {
-  //       id: subject.id,
-  //       name: subject.name,
-  //     },
-  //     level: {
-  //       id: subject.level.id,
-  //       name: subject.level.name,
-  //     },
-  //   };
-  // }
 }
