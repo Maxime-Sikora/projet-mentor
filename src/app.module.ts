@@ -6,6 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LevelModule } from './level/level.module';
 import { SubjectModule } from './subject/subject.module';
+import { AnnounceModule } from './announce/announce.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { SubjectModule } from './subject/subject.module';
     LevelModule,
     TypeOrmModule.forRoot(typeOrmModuleOptions),
     CacheModule.register(),
+    AnnounceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
