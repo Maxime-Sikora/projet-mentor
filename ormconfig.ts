@@ -10,7 +10,7 @@ const options: DataSourceOptions = {
   username: 'root',
   password: 'root',
   database: 'mentor',
-  migrations: ['./migrations/*{.ts,.js}'],
+  migrations: ['./dist/migration/*.js'],
   entities: [SubjectEntity, LevelEntity],
 };
 
