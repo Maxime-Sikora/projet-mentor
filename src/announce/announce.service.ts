@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LevelService } from 'src/level/level.service';
-import { SubjectService } from 'src/subject/subject.service';
 import { Repository } from 'typeorm';
+import { LevelService } from '../level/level.service';
+import { SubjectService } from '../subject/subject.service';
 import { AnnounceEntity } from './entities/announce.entity';
 import { CreateAnnounceDto } from './interface/create-announce.dto';
 
@@ -20,7 +20,13 @@ export class AnnounceService {
     subject: { name: subjectName },
   }: CreateAnnounceDto): Promise<AnnounceEntity> {
     const level = await this.levelService.findOneByName(levelName);
+    if (!level) {
+      throw new HttpException(`level not found`, HttpStatus.NOT_FOUND);
+    }
     const subject = await this.subjectService.findOneByName(subjectName);
+    if (!subject) {
+      throw new HttpException(`subject not found`, HttpStatus.NOT_FOUND);
+    }
     const announce = await this.announceRepository.save({
       price,
       level,
@@ -44,7 +50,7 @@ export class AnnounceService {
     });
     if (!announce) {
       throw new HttpException(
-        `no announce linked to subject: ${subject} and level: ${level}`,
+        `no announce linked to subject: ${subjectName} and level: ${levelName}`,
         HttpStatus.NOT_FOUND,
       );
     }
