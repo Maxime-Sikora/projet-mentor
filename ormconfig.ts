@@ -1,8 +1,8 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { AnnounceEntity } from 'src/announce/entities/announce.entity';
-import { LevelEntity } from 'src/level/entities/level.entity';
-import { SubjectEntity } from 'src/subject/entities/subject.entity';
 import { DataSource, DataSourceOptions } from 'typeorm';
+import { AnnounceEntity } from './src/announce/entities/announce.entity';
+import { LevelEntity } from './src/level/entities/level.entity';
+import { SubjectEntity } from './src/subject/entities/subject.entity';
 
 const options: DataSourceOptions = {
   type: 'mariadb',
