@@ -4,8 +4,8 @@ import { LevelService } from './level.service';
 
 describe('LevelController', () => {
   let controller: LevelController;
-  const service = {
-    createLevel: jest.fn(),
+  let service = {
+    createNewLevel: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -22,7 +22,7 @@ describe('LevelController', () => {
 
   it('should create a new level', () => {
     const spyLevelService = jest
-      .spyOn(service, 'createLevel')
+      .spyOn(service, 'createNewLevel')
       .mockImplementation(() => ({
         id: 1,
         name: 'test-level',

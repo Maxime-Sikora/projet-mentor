@@ -15,12 +15,13 @@ export class SubjectService {
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private configService: ConfigService,
   ) {}
+
   async findAll(): Promise<SubjectEntity[]> {
     const subjectCache =
       await this.cacheManager.get<SubjectEntity[]>('findAll');
     if (!subjectCache) {
       const subjects = await this.subjectRepository.find();
-      await this.cacheManager.set('findAll', subjects, 0); // ici on met 0 pour l'exemple sinon le cache ne reste pas assez longtemps
+      await this.cacheManager.set('findAll', subjects, 0);
       return subjects;
     }
     return subjectCache;
@@ -43,14 +44,15 @@ export class SubjectService {
     });
   }
 
-  findFavorite(): string {
-    return this.configService.get<string>('FAVORITE_SUBJECT');
-  }
-
   async createNewSubject({
     name,
   }: InterfacePostSubject): Promise<SubjectEntity> {
-    const newSubject = await this.subjectRepository.save({ name });
-    return newSubject;
+    return this.subjectRepository.save({
+      name,
+    });
+  }
+
+  findFavorite(): string {
+    return this.configService.get<string>('FAVORITE_SUBJECT');
   }
 }

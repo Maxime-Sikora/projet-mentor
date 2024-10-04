@@ -1,11 +1,9 @@
-import { InterfaceSubject } from 'src/subject/subject';
-
-export type levelInterface = {
+export type LevelInterface = {
   id: number;
   name: string;
 };
 
 export type LevelSubjectInterface = {
-  level: levelInterface;
+  level: LevelInterface;
   subject: InterfaceSubject;
 };

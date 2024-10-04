@@ -8,15 +8,15 @@ import { AnnounceEntity } from '../src/announce/entities/announce.entity';
 import { LevelService } from '../src/level/level.service';
 import { SubjectService } from '../src/subject/subject.service';
 
-describe('Announce e2e', () => {
+describe('Announce (e2e)', () => {
   let app: INestApplication;
-  const subjectService = {
+  let subjectService = {
     findOneByName: jest.fn(),
   };
-  const levelService = {
+  let levelService = {
     findOneByName: jest.fn(),
   };
-  const repository = {
+  let repository = {
     save: jest.fn(),
     findOneBy: jest.fn(),
   };

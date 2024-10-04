@@ -8,15 +8,15 @@ import { SubjectService } from './subject.service';
 describe('SubjectService', () => {
   let service: SubjectService;
 
-  const configService = {
+  let configService = {
     get: jest.fn(),
   };
 
-  const cacheManager = {
+  let cacheManager = {
     get: jest.fn(),
   };
 
-  const subjectRepository = {
+  let subjectRepository = {
     findOneBy: jest.fn(),
   };
 

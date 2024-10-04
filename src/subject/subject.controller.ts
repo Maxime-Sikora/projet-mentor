@@ -7,8 +7,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { SubjectEntity } from './entities/subject.entity';
-import { AddSubjectDto } from './interface/addSubject.dto';
-import { FindOneParams } from './interface/find-one-params.dto';
+import { AddSubjectDto } from './interface/add-subject.dto';
+import { FindOneParams } from './interface/find-one-params';
 import { SubjectService } from './subject.service';
 
 @Controller('subject')

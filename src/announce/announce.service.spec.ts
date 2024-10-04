@@ -7,17 +7,16 @@ import { AnnounceEntity } from './entities/announce.entity';
 
 describe('AnnounceService', () => {
   let service: AnnounceService;
-  const subjectService = {
+  let subjectService = {
     findOneByName: jest.fn(),
   };
-  const levelService = {
+  let levelService = {
     findOneByName: jest.fn(),
   };
-  const repository = {
+  let repository = {
     save: jest.fn(),
     findOneBy: jest.fn(),
   };
-
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       providers: [
@@ -113,7 +112,7 @@ describe('AnnounceService', () => {
       expect(spyRepository).toHaveBeenCalledTimes(1);
     });
 
-    it('should not create an announce if level is empty', async () => {
+    it('it should not create an announce if level is empty', async () => {
       spyLevel.mockResolvedValue(null);
 
       spySubject.mockResolvedValue({
@@ -126,7 +125,7 @@ describe('AnnounceService', () => {
       );
     });
 
-    it('should not create an announce if subject is empty', async () => {
+    it('it should not create an announce if subject is empty', async () => {
       spyLevel.mockResolvedValue({
         id: 1,
         name: 'test-level',

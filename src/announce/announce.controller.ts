@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { AnnounceService } from './announce.service';
 import { AnnounceEntity } from './entities/announce.entity';
 import { CreateAnnounceDto } from './interface/create-announce.dto';
-import { SearchQuery } from './interface/search-query.dto';
+import { SearchQuery } from './interface/search-query';
 
 @Controller('announce')
 export class AnnounceController {

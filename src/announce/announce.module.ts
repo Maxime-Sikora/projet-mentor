@@ -12,7 +12,7 @@ import { AnnounceEntity } from './entities/announce.entity';
     LevelModule,
     SubjectModule,
   ],
-  controllers: [AnnounceController],
   providers: [AnnounceService],
+  controllers: [AnnounceController],
 })
 export class AnnounceModule {}
