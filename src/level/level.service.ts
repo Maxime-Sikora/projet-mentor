@@ -20,7 +20,7 @@ export class LevelService {
     });
   }
 
-  async createLevel(level: { name: string }): Promise<LevelEntity> {
+  async createNewLevel(level: { name: string }): Promise<LevelEntity> {
     return this.levelRepository.save({
       name: level.name,
     });

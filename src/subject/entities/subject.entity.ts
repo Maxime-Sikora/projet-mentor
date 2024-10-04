@@ -17,5 +17,5 @@ export class SubjectEntity {
 
   @OneToMany(() => AnnounceEntity, (announce) => announce.subject)
   @JoinColumn()
-  announces: AnnounceEntity;
+  announces: AnnounceEntity[];
 }

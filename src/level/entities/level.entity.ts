@@ -17,5 +17,5 @@ export class LevelEntity {
 
   @OneToMany(() => AnnounceEntity, (announce) => announce.level)
   @JoinColumn()
-  announces: AnnounceEntity;
+  announces: AnnounceEntity[];
 }

@@ -8,6 +8,6 @@ export class LevelController {
   constructor(private levelService: LevelService) {}
   @Post()
   addLevel(@Body() level: AddLevelDto): Promise<LevelEntity> {
-    return this.levelService.createLevel(level);
+    return this.levelService.createNewLevel(level);
   }
 }

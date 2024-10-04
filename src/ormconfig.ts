@@ -1,8 +1,9 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { AnnounceEntity } from './src/announce/entities/announce.entity';
-import { LevelEntity } from './src/level/entities/level.entity';
-import { SubjectEntity } from './src/subject/entities/subject.entity';
+import { AnnounceEntity } from './announce/entities/announce.entity';
+import { LevelEntity } from './level/entities/level.entity';
+import { SubjectEntity } from './subject/entities/subject.entity';
+import { UserEntity } from './user/entities/user.entity';
 
 const options: DataSourceOptions = {
   type: 'mariadb',
@@ -12,7 +13,7 @@ const options: DataSourceOptions = {
   password: 'root',
   database: 'mentor',
   migrations: ['./dist/migration/*.js'],
-  entities: [SubjectEntity, LevelEntity, AnnounceEntity],
+  entities: [SubjectEntity, LevelEntity, AnnounceEntity, UserEntity],
 };
 
 export const typeOrmModuleOptions: TypeOrmModuleOptions = {

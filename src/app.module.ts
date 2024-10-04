@@ -2,12 +2,13 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeOrmModuleOptions } from '../ormconfig';
 import { AnnounceModule } from './announce/announce.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LevelModule } from './level/level.module';
+import { typeOrmModuleOptions } from './ormconfig';
 import { SubjectModule } from './subject/subject.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { SubjectModule } from './subject/subject.module';
     }),
     CacheModule.register(),
     AnnounceModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
