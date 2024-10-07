@@ -1,9 +1,9 @@
 export const initSubject = [
-  { name: 'Mathématiques', levelId: 1 },
-  { name: 'Français', levelId: 2 },
-  { name: 'Eductation civique', levelId: 3 },
-  { name: 'Education physique et sportive', levelId: 4 },
-  { name: 'Musique', levelId: 5 },
+  { name: 'Mathématiques' },
+  { name: 'Français' },
+  { name: 'Eductation civique' },
+  { name: 'Education physique et sportive' },
+  { name: 'Musique' },
 ];
 
 export const initLevel = [
