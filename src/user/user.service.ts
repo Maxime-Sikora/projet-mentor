@@ -16,6 +16,7 @@ export class UserService {
     lastName,
     email,
     password,
+    role,
   }: CreateUserDto): Promise<UserEntity> {
     const passwordHash = await hash(password, 10);
     return this.userRepository.save({
@@ -23,6 +24,7 @@ export class UserService {
       lastName,
       email,
       passwordHash,
+      role,
     });
   }
 
