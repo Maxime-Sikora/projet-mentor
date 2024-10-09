@@ -1,8 +1,11 @@
+import { CourseEntity } from 'src/course/entities/course.entity';
+import { UserEntity } from 'src/user/entities/user.entity';
 import {
   Column,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { LevelEntity } from '../../level/entities/level.entity';
@@ -23,4 +26,12 @@ export class AnnounceEntity {
   @ManyToOne(() => LevelEntity, (level) => level.announces)
   @JoinColumn()
   level: LevelEntity;
+
+  @OneToMany(() => CourseEntity, (course) => course.announce)
+  @JoinColumn()
+  courses: CourseEntity[];
+
+  @ManyToOne(() => UserEntity, (user) => user.announce)
+  @JoinColumn()
+  teacher: UserEntity;
 }
