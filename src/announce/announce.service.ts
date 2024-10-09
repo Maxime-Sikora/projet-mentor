@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LevelService } from '../level/level.service';
 import { SubjectService } from '../subject/subject.service';
+import { UserService } from '../user/user.service';
 import { AnnounceEntity } from './entities/announce.entity';
 import { CreateAnnounceDto } from './interface/create-announce.dto';
 
@@ -13,13 +14,19 @@ export class AnnounceService {
     private announceRepository: Repository<AnnounceEntity>,
     private subjectService: SubjectService,
     private levelService: LevelService,
+    private userService: UserService,
   ) {}
 
   async createAnnounce({
     price,
     level: { name: levelName },
     subject: { name: subjectName },
-  }: CreateAnnounceDto): Promise<AnnounceEntity> {
+    userId,
+  }: CreateAnnounceDto & { userId: number }): Promise<AnnounceEntity> {
+    const user = await this.userService.findOneById(userId);
+    if (!user) {
+      throw new HttpException(`user not found`, HttpStatus.NOT_FOUND);
+    }
     const level = await this.levelService.findOneByName(levelName);
     if (!level) {
       throw new HttpException(`level not found`, HttpStatus.NOT_FOUND);
@@ -32,6 +39,7 @@ export class AnnounceService {
       price,
       level,
       subject,
+      teacher: user,
     });
     return announce;
   }
@@ -56,5 +64,11 @@ export class AnnounceService {
       );
     }
     return announce;
+  }
+
+  async findOneById(id: number): Promise<AnnounceEntity> {
+    return this.announceRepository.findOneBy({
+      id,
+    });
   }
 }

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { AuthGuard } from 'src/guards/auth.guard';
-import { Roles } from 'src/guards/role.decorateur';
-import { RolesGuard } from 'src/guards/roles.guard';
+import { AuthGuard } from '../guards/auth.guard';
+import { Roles } from '../guards/role.decorateur';
+import { RolesGuard } from '../guards/roles.guard';
 import { UserEntity } from './entities/user.entity';
 import { Role } from './interface/role';
 import { CreateUserDto } from './interface/user.dto';
@@ -16,10 +16,9 @@ export class UserController {
   }
 
   @Get('me')
-  @Roles(Role.Admin, Role.Student)
+  @Roles(Role.Admin, Role.Teacher, Role.Student)
   @UseGuards(AuthGuard, RolesGuard)
   userInfo(@Req() { user }): Promise<UserEntity> {
-    console.log(user);
     return this.userService.findOne(user.username);
   }
 }
