@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UserEntity } from 'src/user/entities/user.entity';
 import { Repository } from 'typeorm';
 import { LevelService } from '../level/level.service';
 import { SubjectService } from '../subject/subject.service';
@@ -69,6 +70,15 @@ export class AnnounceService {
   async findOneById(id: number): Promise<AnnounceEntity> {
     return this.announceRepository.findOneBy({
       id,
+    });
+  }
+
+  async findAllByUser(user: UserEntity) {
+    return this.announceRepository.find({
+      where: {
+        teacher: user,
+      },
+      relations: ['courses'],
     });
   }
 }
