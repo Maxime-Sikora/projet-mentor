@@ -4,9 +4,9 @@ import { StripeService } from 'src/stripe/stripe.service';
 @Injectable()
 export class PaymentService {
   constructor(private stripeService: StripeService) {}
-  createPayment(paymentMethod: string) {
-    this.stripeService.createPaymentIntent({
-      amount: 1500,
+  createPayment(paymentMethod: string, amount: number) {
+    return this.stripeService.createPaymentIntent({
+      amount,
       currency: 'eur',
       payment_method: paymentMethod, // a modifier dans postman avec les données de stripe pour faire des tests
       confirm: true, // pour les besoins de l'app car on a pas de frontend
@@ -19,9 +19,9 @@ export class PaymentService {
     });
   }
 
-  capturePayment(paymentIntentId: string) {
+  capturePayment(paymentIntentId: string, amount: number) {
     this.stripeService.capturePayement(paymentIntentId, {
-      amount_to_capture: 1500,
+      amount_to_capture: amount,
     });
   }
 }
